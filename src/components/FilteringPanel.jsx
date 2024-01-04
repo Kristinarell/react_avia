@@ -1,7 +1,7 @@
 import React from 'react';
 import OptionsSelector from './OptionsSelector';
 import PriceRangeSlider from './PriceRangeSlider';
-import { setActiveSort, setAirline, setTransfersQuantity } from '../redux/filterSlice';
+import { setActiveSort, setSelectedAirline, setTransfersQuantity } from '../redux/filterSlice';
 
 const sorts = [
   { id: 1, name: 'по возрастанию цены', sortProperty: 'flight.price.total.amount', order: 'asc' },
@@ -12,7 +12,7 @@ const transfers = [
   { id: 1, name: 'без пересадок', sortProperty: 'price' },
   { id: 2, name: 'одна пересадка', sortProperty: 'price' },
 ];
-const airlines = [
+const myAirlines = [
   { id: 1, name: 'Air France' },
   { id: 2, name: 'LOT Polish Airlines' },
   { id: 3, name: 'Air Baltic Corporation A/S' },
@@ -23,7 +23,7 @@ const airlines = [
   { id: 8, name: 'LOT Polish Airlines' },
   { id: 9, name: 'Air Baltic Corporation A/S' },
 ];
-const FilteringPanel = () => {
+const FilteringPanel = ({ airlinesCaptions }) => {
   return (
     <div className="filteringPanel">
       <OptionsSelector
@@ -35,14 +35,14 @@ const FilteringPanel = () => {
       />
       <OptionsSelector
         optionsArray={transfers}
-        dispatchFunction={setAirline}
+        dispatchFunction={setTransfersQuantity}
         filterProperty={'transfersQuantity'}
         placeholder={'Пересадки'}
       />
       <OptionsSelector
-        optionsArray={airlines}
-        dispatchFunction={setTransfersQuantity}
-        filterProperty={'airline'}
+        optionsArray={airlinesCaptions}
+        dispatchFunction={setSelectedAirline}
+        filterProperty={'selectedAirlines'}
         placeholder={'Авиакопании'}
       />
       <PriceRangeSlider />

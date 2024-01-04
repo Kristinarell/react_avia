@@ -5,9 +5,20 @@
 @import 'filteringPanel';
 
 body {
-  background-color: $background;
+  // background: -webkit-linear-gradient(to top, #91eae4, #86a8e7, #7f7fd5); /* Chrome 10-25, Safari 5.1-6 */
+  // background: linear-gradient(to top, #91eae4, #86a8e7, #7f7fd5);
+
+  // background: -webkit-linear-gradient(to bottom, #6e48aa, #9d50bb);
+  // background: linear-gradient(to bottom, #6e48aa, #9d50bb);
+
+  background: -webkit-linear-gradient(to top, #fdb99b, #cf8bf3, #a770ef); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to top, #fdb99b, #cf8bf3, #a770ef);
+
+  background-size: cover;
+  background-blend-mode: multiply;
+  background-attachment: fixed;
   font-size: 16px;
 }
 h2 {
-  font-size: 20px;
+  font-size: 18px;
 }

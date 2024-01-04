@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const OptionsSelector = ({ optionsArray, dispatchFunction, filterProperty, radio, placeholder }) => {
   const dispatch = useDispatch();
-  const activeOption = useSelector((state) => state.filter[filterProperty]);
+  const selectedOptions = useSelector((state) => state.filter[filterProperty]);
 
   const [isPopUp, setIsPopUp] = useState(false);
   const popUpRef = useRef(null);
@@ -21,6 +21,12 @@ const OptionsSelector = ({ optionsArray, dispatchFunction, filterProperty, radio
     };
   }, []);
 
+  const isSelected = (option) => {
+    return radio
+      ? selectedOptions.id === option.id
+      : selectedOptions.some((selectedOption) => selectedOption.id === option.id);
+  };
+
   return (
     <div className="optionsContainer">
       <button
@@ -35,7 +41,7 @@ const OptionsSelector = ({ optionsArray, dispatchFunction, filterProperty, radio
         <div className="popUp" ref={popUpRef}>
           <ul>
             {optionsArray.map((option) => (
-              <li key={option.id} className={activeOption.id === option.id ? 'active' : ''}>
+              <li key={option.id} className={isSelected(option) ? 'active' : ''}>
                 <label>
                   <input
                     type={radio ? 'radio' : 'checkbox'}
@@ -44,6 +50,7 @@ const OptionsSelector = ({ optionsArray, dispatchFunction, filterProperty, radio
                     }}
                     value={option.id}
                     name={radio ? 'sort-group' : 'checkbox-group'}
+                    checked={isSelected(option)}
                   />
                   {option.name}
                 </label>

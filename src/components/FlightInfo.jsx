@@ -45,7 +45,9 @@ function convertToFlightTime(minutes) {
 export const FlightInfo = ({ ticketInfo }) => {
   //console.log(ticketInfo);
 
-  const transfersQuantity = ticketInfo.segments.length - 1;
+  const transfersQuantityText =
+    ticketInfo.segments.length === 1 ? 'без пересадок' : `${ticketInfo.segments.length - 1} пересадка`;
+
   const totalDuration = ticketInfo.duration; // общее время в пути
   const initialSegment = ticketInfo.segments[0];
   const finalSegment = ticketInfo.segments[1] ?? ticketInfo.segments[0];
@@ -72,8 +74,9 @@ export const FlightInfo = ({ ticketInfo }) => {
           <h2>{departureTime}</h2>
           <h2>{departureAirport.uid}</h2>
         </div>
+
         <div className="duration">
-          <h2>{convertToFlightTime(totalDuration)}</h2>
+          <h5 className="duration_time">{convertToFlightTime(totalDuration)}</h5>
           <svg width="230" height="30" viewBox="0 0 381 30" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M0.666667 16.4067C0.666667 19.3523 3.05448 21.7401 6 21.7401C8.94552 21.7401 11.3333 19.3523 11.3333 16.4067C11.3333 13.4612 8.94552 11.0734 6 11.0734C3.05448 11.0734 0.666667 13.4612 0.666667 16.4067ZM6 17.4067H175.494V15.4067H6V17.4067ZM175.494 17.4067H344.988V15.4067H175.494V17.4067Z"
@@ -84,14 +87,14 @@ export const FlightInfo = ({ ticketInfo }) => {
               fill="#1F1A1F"
             />
           </svg>
-          <h5>количество пересадок: {transfersQuantity}</h5>
+          <p className="duration_transfers">{transfersQuantityText}</p>
         </div>
+
         <div className="arravalSide">
           <h5>
             {arrivalCity?.caption} {arrivalAirport?.caption}
           </h5>
           <h2>{arrivalDateTime}</h2>
-          <p>по местному времени</p>
           <h2>{arrivalAirport.uid}</h2>
         </div>
       </div>

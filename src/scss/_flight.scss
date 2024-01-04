@@ -5,6 +5,7 @@
     width: 75%;
     margin: 2rem auto;
     min-height: 15rem;
+
     display: grid;
     grid-template-columns: 35% 35% 30%;
     grid-template-rows: 70px 1fr 1fr;
@@ -24,7 +25,23 @@
 
     .price {
       grid-area: price;
-      background-color: aqua;
+      &_container {
+        display: flex;
+      }
+      .svg_container {
+        display: flex;
+        flex-direction: column;
+        align-items: baseline;
+        gap: 5px;
+        padding-left: 20px;
+
+        .pair {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 15px;
+        }
+      }
     }
 
     .ticket_header {
@@ -34,12 +51,17 @@
       width: 100%;
       margin-top: 2rem;
       padding: 0 3rem;
+
+      img {
+        width: 180px; /* Замените на желаемый размер */
+        height: 25px; /* Замените на желаемый размер */
+      }
     }
   }
 
   &_wrapper {
     display: flex;
-    padding: 1rem;
+    padding-bottom: 1rem;
     width: 100%;
     justify-content: space-around;
 
@@ -51,31 +73,51 @@
     }
 
     .flight-info {
-      width: 70%;
+      width: 80%;
       display: flex;
       align-items: center;
       justify-content: space-around;
+      position: relative;
     }
     .departureSide {
-      width: 25%;
+      width: 35%;
     }
     .duration {
-      width: 50%;
+      width: 30%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      position: absolute;
+      left: -55px;
+      position: relative;
+
+      &_time {
+        position: absolute;
+        top: -10px;
+      }
+      &_transfers {
+        position: absolute;
+        top: 20px;
+      }
     }
     .arravalSide {
-      width: 25%;
+      width: 35%;
     }
 
     h5 {
-      margin-bottom: 20px;
       color: $gray;
       font-family: Roboto;
       font-size: 15px;
       font-style: normal;
       font-weight: 400;
     }
-    h2 {
-      margin-bottom: 5px;
+
+    p {
+      color: $gray;
+      font-family: Roboto;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
     }
   }
 }

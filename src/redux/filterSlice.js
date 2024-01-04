@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export const initialState = {
   sort: {},
-  airline: [],
+  selectedAirlines: [],
   transfersQuantity: [],
   priceRange: { minPrice: 0, maxPrice: 1000000 },
 };
@@ -15,9 +15,22 @@ export const filterSlice = createSlice({
       state.sort = action.payload;
     },
 
-    setAirline: (state, action) => {
-      state.airline.push(action.payload);
+    setSelectedAirline: (state, action) => {
+      const existingAirline = state.selectedAirlines.find(
+        (selectedAirline) => selectedAirline.id === action.payload.id,
+      );
+
+      if (!existingAirline) {
+        // Если авиакомпания не выбрана, добавляем в массив
+        state.selectedAirlines.push(action.payload);
+      } else {
+        // Если авиакомпания уже выбрана, удаляем из массива
+        state.selectedAirlines = state.selectedAirlines.filter(
+          (selectedAirline) => selectedAirline.id !== action.payload.id,
+        );
+      }
     },
+
     setTransfersQuantity: (state, action) => {
       state.transfersQuantity.push(action.payload);
     },
@@ -28,5 +41,11 @@ export const filterSlice = createSlice({
 });
 
 export const selectFilter = (state) => state.filter;
-export const { setActiveSort, setAirline, setPriceRange, setTransfersQuantity } = filterSlice.actions;
+export const {
+  setActiveSort,
+  setSelectedAirline,
+  setPriceRange,
+  setTransfersQuantity,
+  removeSelectedAirline,
+} = filterSlice.actions;
 export default filterSlice.reducer;
