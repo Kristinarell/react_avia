@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FilteringPanel from './components/FilteringPanel';
 import Flight from './components/Flight';
@@ -42,6 +42,7 @@ const compareFunction = (a, b, activeSort) => {
 function App() {
   const { sort, selectedAirlines, transfersQuantity, priceRange } = useSelector((state) => state.filter);
 
+  const initialRender = useRef();
   const findLogoByCaption = (caption) => {
     const airline = airlinesCaptions.find((item) => item.name === caption);
     return airline ? airline.logo : undefined;
@@ -76,18 +77,6 @@ function App() {
 
     setAirlinesCaptions(airlinesWithLogo);
   }, []);
-  // console.log(`Если нет выбранных авиакомпаний, показываем все билеты`);
-  // console.log(allFlights);
-  const filteringFunction = (selectedOptions) => {
-    if (selectedOptions.length === 0) {
-      setFilteredFlights(allFlights); // Если нет выбранных авиакомпаний, показываем все билеты
-    } else {
-      const result = allFlights.filter((singleFlight) =>
-        selectedOptions.some((option) => singleFlight.flight.carrier.caption === option.name),
-      );
-      setFilteredFlights(result);
-    }
-  };
 
   // при превом запуске из json файла выгружаем все полеты и к каждому объекту добавляем свойство totalTravelTime
   useEffect(() => {
@@ -100,22 +89,32 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (Object.keys(sort).length !== 0) {
-      setFilteredFlights([...filteredFlights].sort((a, b) => compareFunction(a, b, sort)));
+    if (initialRender.current) {
+      initialRender.current = false;
+      return;
     }
-    // сделать чтобы при повторном нажатии на радио сортировка снималась и возвращалось изначальное значение
-    // else {
-    //   setFlights([...jsonData.result.flights]);
-    // }
-  }, [sort]);
 
-  useEffect(() => {
-    filteringFunction(selectedAirlines);
-  }, [selectedAirlines]);
+    if (selectedAirlines.length === 0) {
+      console.log(`Если нет выбранных авиакомпаний, показываем все билеты`);
+      console.log(allFlights);
+      setFilteredFlights(allFlights); // Если нет выбранных авиакомпаний, показываем все билеты
+    } else {
+      const result = allFlights.filter((singleFlight) =>
+        selectedAirlines.some((option) => singleFlight.flight.carrier.caption === option.name),
+      );
+      setFilteredFlights(result);
+    }
 
+    if (Object.keys(sort).length !== 0) {
+      setFilteredFlights((prevFilteredFlights) =>
+        [...prevFilteredFlights].sort((a, b) => compareFunction(a, b, sort)),
+      );
+    }
+  }, [selectedAirlines, sort, allFlights]);
   return (
     <div className="App">
       <FilteringPanel airlinesCaptions={airlinesCaptions} />
+      <p>Найдено рейсов: {filteredFlights.length}</p>
       {filteredFlights?.map((singleFlight) => (
         <Flight
           key={singleFlight.flightToken}
