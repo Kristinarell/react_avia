@@ -1,0 +1,346 @@
+{
+  "hasExtendedFare": false,
+  "flight": {
+    "carrier": {
+      "uid": "AF",
+      "caption": "Air France",
+      "airlineCode": "AF"
+    },
+    "price": {
+      "total": {
+        "amount": "148873",
+        "currency": "руб.",
+        "currencyCode": "RUB"
+      },
+      "totalFeeAndTaxes": {
+        "amount": "10893.00",
+        "currency": "руб.",
+        "currencyCode": "RUB"
+      },
+      "rates": {
+        "totalUsd": {
+          "amount": "1849.35",
+          "currencyCode": "EUR"
+        },
+        "totalEur": {
+          "amount": "2096.80",
+          "currencyCode": "USD"
+        }
+      },
+      "passengerPrices": [
+        {
+          "total": {
+            "amount": "148873.00",
+            "currency": "руб.",
+            "currencyCode": "RUB"
+          },
+          "passengerType": {
+            "uid": "ADULT",
+            "caption": "Взрослый"
+          },
+          "singlePassengerTotal": {
+            "amount": "148873.00",
+            "currency": "руб.",
+            "currencyCode": "RUB"
+          },
+          "passengerCount": 1,
+          "tariff": {
+            "amount": "137980.00",
+            "currency": "руб.",
+            "currencyCode": "RUB"
+          },
+          "feeAndTaxes": {
+            "amount": "10893.00",
+            "currency": "руб.",
+            "currencyCode": "RUB"
+          }
+        }
+      ]
+    },
+    "servicesStatuses": {
+      "baggage": {
+        "uid": "FREE",
+        "caption": "Бесплатно"
+      },
+      "exchange": {
+        "uid": "FREE",
+        "caption": "Бесплатно"
+      },
+      "refund": {
+        "uid": "OFF",
+        "caption": "Недоступно"
+      }
+    },
+    "legs": [
+      {
+        "duration": 795,
+        "segments": [
+          {
+            "classOfServiceCode": "I",
+            "classOfService": {
+              "uid": "BUSINESS",
+              "caption": "Бизнес"
+            },
+            "departureAirport": {
+              "uid": "SVO",
+              "caption": "ШЕРЕМЕТЬЕВО"
+            },
+            "departureCity": {
+              "uid": "MOW",
+              "caption": "Москва"
+            },
+            "aircraft": {
+              "uid": "321",
+              "caption": "АЭРОБУС321"
+            },
+            "travelDuration": 240,
+            "arrivalCity": {
+              "uid": "PAR",
+              "caption": "ПАРИЖ"
+            },
+            "arrivalDate": "2020-08-18T13:05:00",
+            "flightNumber": "4899",
+            "techStopInfos": [],
+            "departureDate": "2020-08-18T10:05:00",
+            "stops": 0,
+            "servicesDetails": {
+              "freeCabinLuggage": {},
+              "paidCabinLuggage": {},
+              "tariffName": "BUSINESS FLEX",
+              "fareBasis": {
+                "ADULT": "IS50AENB"
+              },
+              "freeLuggage": {
+                "ADULT": {
+                  "pieces": 2,
+                  "nil": false,
+                  "unit": "шт"
+                }
+              },
+              "paidLuggage": {}
+            },
+            "airline": {
+              "uid": "AF",
+              "caption": "Air France",
+              "airlineCode": "AF"
+            },
+            "starting": true,
+            "arrivalAirport": {
+              "uid": "CDG",
+              "caption": "ПАРИЖ, ШАРЛЬ ДЕ ГОЛЛЬ"
+            },
+            "operatingAirline": {
+              "uid": "SU1",
+              "caption": "Аэрофлот - российские авиалинии",
+              "airlineCode": "SU"
+            }
+          },
+          {
+            "classOfServiceCode": "I",
+            "classOfService": {
+              "uid": "BUSINESS",
+              "caption": "Бизнес"
+            },
+            "departureAirport": {
+              "uid": "CDG",
+              "caption": "ПАРИЖ, ШАРЛЬ ДЕ ГОЛЛЬ"
+            },
+            "departureCity": {
+              "uid": "PAR",
+              "caption": "ПАРИЖ"
+            },
+            "aircraft": {
+              "uid": "319",
+              "caption": "AirbusA319"
+            },
+            "travelDuration": 85,
+            "arrivalCity": {
+              "uid": "LON",
+              "caption": "ЛОНДОН"
+            },
+            "arrivalDate": "2020-08-18T21:20:00",
+            "flightNumber": "1380",
+            "techStopInfos": [],
+            "departureDate": "2020-08-18T20:55:00",
+            "stops": 0,
+            "servicesDetails": {
+              "freeCabinLuggage": {},
+              "paidCabinLuggage": {},
+              "tariffName": "BUSINESS FLEX",
+              "fareBasis": {
+                "ADULT": "IS50AENB"
+              },
+              "freeLuggage": {
+                "ADULT": {
+                  "pieces": 2,
+                  "nil": false,
+                  "unit": "шт"
+                }
+              },
+              "paidLuggage": {}
+            },
+            "airline": {
+              "uid": "AF",
+              "caption": "Air France",
+              "airlineCode": "AF"
+            },
+            "starting": false,
+            "arrivalAirport": {
+              "uid": "LHR",
+              "caption": "Лондон, Хитроу"
+            }
+          }
+        ]
+      },
+      {
+        "duration": 790,
+        "segments": [
+          {
+            "classOfServiceCode": "I",
+            "classOfService": {
+              "uid": "ECONOMY",
+              "caption": "Эконом"
+            },
+            "departureAirport": {
+              "uid": "LHR",
+              "caption": "Лондон, Хитроу"
+            },
+            "departureCity": {
+              "uid": "LON",
+              "caption": "ЛОНДОН"
+            },
+            "aircraft": {
+              "uid": "320",
+              "caption": "А320"
+            },
+            "travelDuration": 80,
+            "arrivalCity": {
+              "uid": "PAR",
+              "caption": "ПАРИЖ"
+            },
+            "arrivalDate": "2020-08-19T11:15:00",
+            "flightNumber": "306",
+            "techStopInfos": [],
+            "departureDate": "2020-08-19T08:55:00",
+            "stops": 0,
+            "servicesDetails": {
+              "freeCabinLuggage": {},
+              "paidCabinLuggage": {},
+              "tariffName": "BUSINESS FLEX",
+              "fareBasis": {
+                "ADULT": "CS40AENN"
+              },
+              "freeLuggage": {
+                "ADULT": {
+                  "pieces": 2,
+                  "nil": false,
+                  "unit": "шт"
+                }
+              },
+              "paidLuggage": {}
+            },
+            "airline": {
+              "uid": "BA",
+              "caption": "British Airways p.l.c.",
+              "airlineCode": "BA"
+            },
+            "starting": true,
+            "arrivalAirport": {
+              "uid": "CDG",
+              "caption": "ПАРИЖ, ШАРЛЬ ДЕ ГОЛЛЬ"
+            }
+          },
+          {
+            "classOfServiceCode": "C",
+            "classOfService": {
+              "uid": "BUSINESS",
+              "caption": "Бизнес"
+            },
+            "departureAirport": {
+              "uid": "CDG",
+              "caption": "ПАРИЖ, ШАРЛЬ ДЕ ГОЛЛЬ"
+            },
+            "departureCity": {
+              "uid": "PAR",
+              "caption": "ПАРИЖ"
+            },
+            "aircraft": {
+              "uid": "320",
+              "caption": "А320"
+            },
+            "travelDuration": 220,
+            "arrivalCity": {
+              "uid": "MOW",
+              "caption": "Москва"
+            },
+            "arrivalDate": "2020-08-20T00:05:00",
+            "flightNumber": "1654",
+            "techStopInfos": [],
+            "departureDate": "2020-08-19T19:25:00",
+            "stops": 0,
+            "servicesDetails": {
+              "freeCabinLuggage": {},
+              "paidCabinLuggage": {},
+              "tariffName": "BUSINESS FLEX",
+              "fareBasis": {
+                "ADULT": "CS40AENN"
+              },
+              "freeLuggage": {
+                "ADULT": {
+                  "pieces": 2,
+                  "nil": false,
+                  "unit": "шт"
+                }
+              },
+              "paidLuggage": {}
+            },
+            "airline": {
+              "uid": "AF",
+              "caption": "Air France",
+              "airlineCode": "AF"
+            },
+            "starting": false,
+            "arrivalAirport": {
+              "uid": "SVO",
+              "caption": "ШЕРЕМЕТЬЕВО"
+            }
+          }
+        ]
+      }
+    ],
+    "exchange": {
+      "ADULT": {
+        "exchangeableBeforeDeparture": true,
+        "exchangeAfterDeparture": {
+          "amount": "0",
+          "currency": "руб.",
+          "currencyCode": "RUB"
+        },
+        "exchangeBeforeDeparture": {
+          "amount": "0",
+          "currency": "руб.",
+          "currencyCode": "RUB"
+        },
+        "exchangeableAfterDeparture": true
+      }
+    },
+    "isTripartiteContractDiscountApplied": false,
+    "international": false,
+    "seats": [
+      {
+        "count": 1,
+        "type": {
+          "uid": "ADULT",
+          "caption": "Взрослый"
+        }
+      }
+    ],
+    "refund": {
+      "ADULT": {
+        "refundableBeforeDeparture": false,
+        "refundableAfterDeparture": false
+      }
+    }
+  },
+  "flightToken": "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"
+}

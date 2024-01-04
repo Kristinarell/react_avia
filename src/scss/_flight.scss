@@ -1,0 +1,81 @@
+.flight {
+  &_container {
+    background: #f1f1f1;
+    border-radius: 20px;
+    width: 75%;
+    margin: 2rem auto;
+    min-height: 15rem;
+    display: grid;
+    grid-template-columns: 35% 35% 30%;
+    grid-template-rows: 70px 1fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      'ticket_header ticket_header ticket_header'
+      'departureTicket departureTicket price'
+      'arrivalTicket arrivalTicket price';
+
+    .departureTicket {
+      grid-area: departureTicket;
+    }
+    .arrivalTicket {
+      grid-area: arrivalTicket;
+    }
+
+    .price {
+      grid-area: price;
+      background-color: aqua;
+    }
+
+    .ticket_header {
+      grid-area: ticket_header;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 2rem;
+      padding: 0 3rem;
+    }
+  }
+
+  &_wrapper {
+    display: flex;
+    padding: 1rem;
+    width: 100%;
+    justify-content: space-around;
+
+    .departure-date {
+      width: 10%;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+
+    .flight-info {
+      width: 70%;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+    .departureSide {
+      width: 25%;
+    }
+    .duration {
+      width: 50%;
+    }
+    .arravalSide {
+      width: 25%;
+    }
+
+    h5 {
+      margin-bottom: 20px;
+      color: $gray;
+      font-family: Roboto;
+      font-size: 15px;
+      font-style: normal;
+      font-weight: 400;
+    }
+    h2 {
+      margin-bottom: 5px;
+    }
+  }
+}
