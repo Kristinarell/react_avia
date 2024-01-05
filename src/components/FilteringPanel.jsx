@@ -9,20 +9,10 @@ const sorts = [
   { id: 3, name: 'по времени в пути', sortProperty: 'totalTravelTime', order: 'asc' },
 ];
 const transfers = [
-  { id: 1, name: 'без пересадок', sortProperty: 'price' },
-  { id: 2, name: 'одна пересадка', sortProperty: 'price' },
+  { id: 1, name: 'без пересадок', maxValue: 0 },
+  { id: 2, name: 'одна пересадка', maxValue: 2 },
 ];
-const myAirlines = [
-  { id: 1, name: 'Air France' },
-  { id: 2, name: 'LOT Polish Airlines' },
-  { id: 3, name: 'Air Baltic Corporation A/S' },
-  { id: 4, name: 'Finnair Oyj' },
-  { id: 5, name: 'KLM' },
-  { id: 6, name: 'TURK HAVA YOLLARI A.O.' },
-  { id: 7, name: 'Pegasus Hava Tasimaciligi A.S.' },
-  { id: 8, name: 'LOT Polish Airlines' },
-  { id: 9, name: 'Air Baltic Corporation A/S' },
-];
+
 const FilteringPanel = ({ airlinesCaptions }) => {
   return (
     <div className="filteringPanel">

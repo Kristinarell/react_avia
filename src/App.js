@@ -31,14 +31,6 @@ const compareFunction = (a, b, activeSort) => {
   }
 };
 
-// const filteringFunction = (flights, selectedOptions) => {
-//   console.log(`ВЫзвана функция filteringFunction с массивом `);
-//   console.log(selectedOptions);
-//   return flights.filter((singleFlight) => {
-//     return selectedOptions.some((option) => singleFlight.flight.carrier.caption === option.name);
-//   });
-// };
-
 function App() {
   const { sort, selectedAirlines, transfersQuantity, priceRange } = useSelector((state) => state.filter);
 
@@ -83,6 +75,9 @@ function App() {
     const flightsWithTotalTravelTime = jsonData.result.flights.map((singleFlight) => ({
       ...singleFlight,
       totalTravelTime: singleFlight.flight.legs[0].duration + singleFlight.flight.legs[1].duration,
+      // общее количество пересадок - количество сегментов минус один для каждой части полета.
+      transfersQuantity:
+        singleFlight.flight.legs[0].segments.length - 1 + singleFlight.flight.legs[1].segments.length - 1,
     }));
     setAllFlights(flightsWithTotalTravelTime);
     setFilteredFlights(flightsWithTotalTravelTime);
@@ -105,12 +100,34 @@ function App() {
       setFilteredFlights(result);
     }
 
+    if (transfersQuantity.length !== 0) {
+      setFilteredFlights(
+        allFlights.filter((singleFlight) =>
+          transfersQuantity.some(
+            (option) =>
+              (option.maxValue === 0 && singleFlight.transfersQuantity === 0) ||
+              (singleFlight.transfersQuantity !== 0 && singleFlight.transfersQuantity <= option.maxValue),
+          ),
+        ),
+      );
+    }
+    if (priceRange[0] !== 0) {
+      setFilteredFlights(
+        allFlights.filter(
+          (singleFlight) =>
+            singleFlight.flight.price.total.amount >= priceRange[0] &&
+            singleFlight.flight.price.total.amount <= priceRange[1],
+        ),
+      );
+    }
+
     if (Object.keys(sort).length !== 0) {
       setFilteredFlights((prevFilteredFlights) =>
         [...prevFilteredFlights].sort((a, b) => compareFunction(a, b, sort)),
       );
     }
-  }, [selectedAirlines, sort, allFlights]);
+  }, [selectedAirlines, sort, allFlights, transfersQuantity, priceRange]);
+
   return (
     <div className="App">
       <FilteringPanel airlinesCaptions={airlinesCaptions} />

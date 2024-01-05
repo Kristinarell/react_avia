@@ -4,7 +4,7 @@ export const initialState = {
   sort: {},
   selectedAirlines: [],
   transfersQuantity: [],
-  priceRange: { minPrice: 0, maxPrice: 1000000 },
+  priceRange: [0, 200000],
 };
 export const filterSlice = createSlice({
   name: 'filter',
@@ -32,10 +32,20 @@ export const filterSlice = createSlice({
     },
 
     setTransfersQuantity: (state, action) => {
-      state.transfersQuantity.push(action.payload);
+      const existingQuantity = state.transfersQuantity.find((quantity) => quantity.id === action.payload.id);
+
+      if (!existingQuantity) {
+        // Если количество пересадок не выбрано, добавляем в массив
+        state.transfersQuantity.push(action.payload);
+      } else {
+        // Если количество пересадок уже выбрано, удаляем из массива
+        state.transfersQuantity = state.transfersQuantity.filter(
+          (quantity) => quantity.id !== action.payload.id,
+        );
+      }
     },
     setPriceRange: (state, action) => {
-      state.sort = action.payload;
+      state.priceRange = action.payload;
     },
   },
 });
