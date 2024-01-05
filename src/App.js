@@ -10,6 +10,7 @@ import AirBalticLogo from './assets/airlines/AirBaltic.svg';
 import AlitaliaLogo from './assets/airlines/Alitalia.svg';
 import BrusselsAirlinesLogo from './assets/airlines/Brussels Airlines.svg';
 import KLMLogo from './assets/airlines/KLM.svg';
+import FinnairLogo from './assets/airlines/Finnair.svg';
 import LOTPolishAirlinesLogo from './assets/airlines/LOT Polish Airlines.svg';
 import PegasusAirlinesLogo from './assets/airlines/Pegasus Airlines.svg';
 import TurkishAirlinesLogo from './assets/airlines/Turkish Airlines.svg';
@@ -50,16 +51,21 @@ function App() {
     const uniqueAirlines = Array.from(
       new Set(jsonData.result.flights.map((singleFlight) => singleFlight.flight.carrier.caption)),
     );
+    console.log(' console.log(uniqueAirlines)');
+    console.log(uniqueAirlines);
 
     const airlineLogos = {
-      'Aeroflot - российские авиалинии': AeroflotLogo,
+      'Аэрофлот - российские авиалинии': AeroflotLogo,
       'Air France': AirFranceLogo,
+      'KLM ': KLMLogo,
       'Air Baltic Corporation A/S': AirBalticLogo,
       'Alitalia Societa Aerea Italiana': AlitaliaLogo,
       'Brussels Airlines': BrusselsAirlinesLogo,
       'LOT Polish Airlines': LOTPolishAirlinesLogo,
       'Pegasus Hava Tasimaciligi A.S.': PegasusAirlinesLogo,
       'TURK HAVA YOLLARI A.O.': TurkishAirlinesLogo,
+      'Finnair Oyj': FinnairLogo,
+      KLM: KLMLogo,
     };
 
     const airlinesWithLogo = uniqueAirlines.map((airline, index) => ({
@@ -137,7 +143,7 @@ function App() {
   return (
     <div className="App">
       <FilteringPanel airlinesCaptions={airlinesCaptions} />
-      <p>Найдено рейсов: {filteredFlights.length}</p>
+      <p className="flightsLength">Найдено рейсов: {filteredFlights.length}</p>
       {filteredFlights?.map((singleFlight) => (
         <Flight
           key={singleFlight.flightToken}

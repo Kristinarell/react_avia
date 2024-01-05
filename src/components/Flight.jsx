@@ -12,7 +12,7 @@ const Flight = ({ departureTicket, arrivalTicket, price, carrier, baggage, logo 
     <div className="flight_container">
       <div className="ticket_header">
         {logo && <img src={logo} alt={`Логотип ${carrier}`}></img>}
-        <h2>{carrier}</h2>
+        <h5>{carrier}</h5>
       </div>
 
       <div className="departureTicket">

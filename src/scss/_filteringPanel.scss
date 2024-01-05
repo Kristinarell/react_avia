@@ -4,10 +4,12 @@
   display: flex;
   justify-content: space-between;
   margin-top: 5rem;
+  margin-bottom: 3rem;
+  gap: 10px;
 
   .optionsContainer {
     position: relative;
-    width: 250px;
+    width: 25.5%;
 
     .popUpButton {
       display: inline-block;
@@ -96,5 +98,27 @@
         }
       }
     }
+  }
+}
+
+.sliderWrapper {
+  position: relative;
+  width: 22%;
+  padding: 8px 12px;
+  .minPrice {
+    position: absolute;
+    left: 30px;
+    top: 30px;
+  }
+  .maxPrice {
+    position: absolute;
+    left: 158px;
+    top: 30px;
+  }
+
+  .slider_caption {
+    position: absolute;
+    left: 46px;
+    top: -5px;
   }
 }

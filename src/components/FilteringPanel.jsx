@@ -35,7 +35,9 @@ const FilteringPanel = ({ airlinesCaptions }) => {
         filterProperty={'selectedAirlines'}
         placeholder={'Авиакопании'}
       />
-      <PriceRangeSlider />
+      <div className="sliderWrapper">
+        <PriceRangeSlider />
+      </div>
     </div>
   );
 };

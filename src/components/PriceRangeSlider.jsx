@@ -24,7 +24,7 @@ const PriceRangeSlider = () => {
 
   return (
     <Box>
-      <Typography gutterBottom>Ценовой диапазон</Typography>
+      <p className="slider_caption">Ценовой диапазон</p>
       <Slider
         value={debouncedValue}
         onChange={handleChange}
@@ -33,8 +33,8 @@ const PriceRangeSlider = () => {
         min={0}
         max={200000}
       />
-      <Typography>Минимальная цена: {debouncedValue[0]}</Typography>
-      <Typography>Максимальная цена: {debouncedValue[1]}</Typography>
+      <p className="minPrice">{debouncedValue[0]}</p>
+      <p className="maxPrice"> {debouncedValue[1]}</p>
     </Box>
   );
 };

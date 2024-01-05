@@ -46,15 +46,16 @@
 
     .ticket_header {
       grid-area: ticket_header;
-      display: flex;
-      justify-content: space-between;
       width: 100%;
-      margin-top: 2rem;
+      margin-top: 1rem;
       padding: 0 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
       img {
-        width: 180px; /* Замените на желаемый размер */
-        height: 25px; /* Замените на желаемый размер */
+        max-height: 28px;
+        max-width: 180px;
       }
     }
   }
@@ -120,4 +121,11 @@
       font-weight: 400;
     }
   }
+}
+.flightsLength {
+  position: absolute;
+  left: 198px;
+  top: 155px;
+  font-size: 13px;
+  color: #393939;
 }
