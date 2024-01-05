@@ -35,6 +35,7 @@ function App() {
   const { sort, selectedAirlines, transfersQuantity, priceRange } = useSelector((state) => state.filter);
 
   const initialRender = useRef();
+  const priviousFilter = useRef();
   const findLogoByCaption = (caption) => {
     const airline = airlinesCaptions.find((item) => item.name === caption);
     return airline ? airline.logo : undefined;
@@ -90,35 +91,40 @@ function App() {
     }
 
     if (selectedAirlines.length === 0) {
-      console.log(`Если нет выбранных авиакомпаний, показываем все билеты`);
-      console.log(allFlights);
+      priviousFilter.current = allFlights;
       setFilteredFlights(allFlights); // Если нет выбранных авиакомпаний, показываем все билеты
     } else {
       const result = allFlights.filter((singleFlight) =>
         selectedAirlines.some((option) => singleFlight.flight.carrier.caption === option.name),
       );
+      priviousFilter.current = result;
       setFilteredFlights(result);
     }
 
     if (transfersQuantity.length !== 0) {
-      setFilteredFlights(
-        allFlights.filter((singleFlight) =>
-          transfersQuantity.some(
-            (option) =>
-              (option.maxValue === 0 && singleFlight.transfersQuantity === 0) ||
-              (singleFlight.transfersQuantity !== 0 && singleFlight.transfersQuantity <= option.maxValue),
-          ),
+      console.log(`применена фильтрация по пересадкам`);
+      console.log(priviousFilter.current);
+      const result = priviousFilter.current.filter((singleFlight) =>
+        transfersQuantity.some(
+          (option) =>
+            (option.maxValue === 0 && singleFlight.transfersQuantity === 0) ||
+            (singleFlight.transfersQuantity !== 0 && singleFlight.transfersQuantity <= option.maxValue),
         ),
       );
+      priviousFilter.current = result;
+      setFilteredFlights(result);
     }
-    if (priceRange[0] !== 0) {
-      setFilteredFlights(
-        allFlights.filter(
-          (singleFlight) =>
-            singleFlight.flight.price.total.amount >= priceRange[0] &&
-            singleFlight.flight.price.total.amount <= priceRange[1],
-        ),
+
+    if (priceRange[0] !== 0 || priceRange[1] !== 200000) {
+      console.log(`применена фильтрация по цене`);
+      console.log(priviousFilter.current);
+      const result = priviousFilter.current.filter(
+        (singleFlight) =>
+          singleFlight.flight.price.total.amount >= priceRange[0] &&
+          singleFlight.flight.price.total.amount <= priceRange[1],
       );
+      priviousFilter.current = result;
+      setFilteredFlights(result);
     }
 
     if (Object.keys(sort).length !== 0) {
