@@ -1,23 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import FilteringPanel from './components/FilteringPanel';
-import Flight from './components/Flight';
+import FlightLegs from './components/FlightLegs';
+import { airlineLogos, findLogoByCaption } from './utils/airlineLogos';
 import jsonData from './flights.json';
-
-import AeroflotLogo from './assets/airlines/Aeroflot.svg';
-import AirFranceLogo from './assets/airlines/Air France.svg';
-import AirBalticLogo from './assets/airlines/AirBaltic.svg';
-import AlitaliaLogo from './assets/airlines/Alitalia.svg';
-import BrusselsAirlinesLogo from './assets/airlines/Brussels Airlines.svg';
-import KLMLogo from './assets/airlines/KLM.svg';
-import FinnairLogo from './assets/airlines/Finnair.svg';
-import LOTPolishAirlinesLogo from './assets/airlines/LOT Polish Airlines.svg';
-import PegasusAirlinesLogo from './assets/airlines/Pegasus Airlines.svg';
-import TurkishAirlinesLogo from './assets/airlines/Turkish Airlines.svg';
 
 const compareFunction = (a, b, activeSort) => {
   const props = activeSort.sortProperty.split('.');
 
+  // последовательное обращение к вложенным свойствам объекта
   const valueA = props.reduce(function (acc, prop) {
     return acc[prop];
   }, a);
@@ -35,70 +26,49 @@ const compareFunction = (a, b, activeSort) => {
 function App() {
   const { sort, selectedAirlines, transfersQuantity, priceRange } = useSelector((state) => state.filter);
 
-  const initialRender = useRef();
-  const priviousFilter = useRef();
-  const findLogoByCaption = (caption) => {
-    const airline = airlinesCaptions.find((item) => item.name === caption);
-    return airline ? airline.logo : undefined;
-  };
+  const initialRender = useRef(true);
+  const priviousFilter = useRef([]);
 
   const [allFlights, setAllFlights] = useState([]);
   const [filteredFlights, setFilteredFlights] = useState([]);
+  const [flightCarriersList, setFlightCarriersList] = useState([]);
 
-  const [airlinesCaptions, setAirlinesCaptions] = useState([]);
-
+  // формирование списка уникальных авиакомпаний из данных о полетах
   useEffect(() => {
     const uniqueAirlines = Array.from(
       new Set(jsonData.result.flights.map((singleFlight) => singleFlight.flight.carrier.caption)),
     );
-    console.log(' console.log(uniqueAirlines)');
-    console.log(uniqueAirlines);
-
-    const airlineLogos = {
-      'Аэрофлот - российские авиалинии': AeroflotLogo,
-      'Air France': AirFranceLogo,
-      'KLM ': KLMLogo,
-      'Air Baltic Corporation A/S': AirBalticLogo,
-      'Alitalia Societa Aerea Italiana': AlitaliaLogo,
-      'Brussels Airlines': BrusselsAirlinesLogo,
-      'LOT Polish Airlines': LOTPolishAirlinesLogo,
-      'Pegasus Hava Tasimaciligi A.S.': PegasusAirlinesLogo,
-      'TURK HAVA YOLLARI A.O.': TurkishAirlinesLogo,
-      'Finnair Oyj': FinnairLogo,
-      KLM: KLMLogo,
-    };
-
-    const airlinesWithLogo = uniqueAirlines.map((airline, index) => ({
+    const airlinesData = uniqueAirlines.map((airline, index) => ({
       id: index,
       name: airline,
       logo: airlineLogos[airline],
     }));
-
-    setAirlinesCaptions(airlinesWithLogo);
+    setFlightCarriersList(airlinesData);
   }, []);
 
-  // при превом запуске из json файла выгружаем все полеты и к каждому объекту добавляем свойство totalTravelTime
+  // добавление к каждому объкту свойства totalTravelTime, transfersQuantity для сортировки/фильтрации
   useEffect(() => {
-    const flightsWithTotalTravelTime = jsonData.result.flights.map((singleFlight) => ({
-      ...singleFlight,
-      totalTravelTime: singleFlight.flight.legs[0].duration + singleFlight.flight.legs[1].duration,
-      // общее количество пересадок - количество сегментов минус один для каждой части полета.
+    const flightsWithProperties = jsonData.result.flights.map((flightObj) => ({
+      ...flightObj,
+      totalTravelTime: flightObj.flight.legs[0].duration + flightObj.flight.legs[1].duration,
       transfersQuantity:
-        singleFlight.flight.legs[0].segments.length - 1 + singleFlight.flight.legs[1].segments.length - 1,
+        flightObj.flight.legs[0].segments.length - 1 + flightObj.flight.legs[1].segments.length - 1,
     }));
-    setAllFlights(flightsWithTotalTravelTime);
-    setFilteredFlights(flightsWithTotalTravelTime);
+    setAllFlights(flightsWithProperties);
+    setFilteredFlights(flightsWithProperties);
   }, []);
 
+  //  фильтрации и сортировки списка полетов в зависимости от параметров
   useEffect(() => {
     if (initialRender.current) {
       initialRender.current = false;
       return;
     }
 
+    // по выбранным авиакомпаниям
     if (selectedAirlines.length === 0) {
       priviousFilter.current = allFlights;
-      setFilteredFlights(allFlights); // Если нет выбранных авиакомпаний, показываем все билеты
+      setFilteredFlights(allFlights);
     } else {
       const result = allFlights.filter((singleFlight) =>
         selectedAirlines.some((option) => singleFlight.flight.carrier.caption === option.name),
@@ -107,9 +77,8 @@ function App() {
       setFilteredFlights(result);
     }
 
+    // по количеству пересадок
     if (transfersQuantity.length !== 0) {
-      console.log(`применена фильтрация по пересадкам`);
-      console.log(priviousFilter.current);
       const result = priviousFilter.current.filter((singleFlight) =>
         transfersQuantity.some(
           (option) =>
@@ -121,9 +90,8 @@ function App() {
       setFilteredFlights(result);
     }
 
+    // по ценовому диапозону
     if (priceRange[0] !== 0 || priceRange[1] !== 200000) {
-      console.log(`применена фильтрация по цене`);
-      console.log(priviousFilter.current);
       const result = priviousFilter.current.filter(
         (singleFlight) =>
           singleFlight.flight.price.total.amount >= priceRange[0] &&
@@ -133,19 +101,20 @@ function App() {
       setFilteredFlights(result);
     }
 
+    // сортировка
     if (Object.keys(sort).length !== 0) {
       setFilteredFlights((prevFilteredFlights) =>
         [...prevFilteredFlights].sort((a, b) => compareFunction(a, b, sort)),
       );
     }
-  }, [selectedAirlines, sort, allFlights, transfersQuantity, priceRange]);
+  }, [selectedAirlines, sort, transfersQuantity, priceRange]);
 
   return (
     <div className="App">
-      <FilteringPanel airlinesCaptions={airlinesCaptions} />
-      <p className="flightsLength">Найдено рейсов: {filteredFlights.length}</p>
+      <FilteringPanel airlinesCaptions={flightCarriersList} />
+      <p className="flightsNumber">Найдено рейсов: {filteredFlights.length}</p>
       {filteredFlights?.map((singleFlight) => (
-        <Flight
+        <FlightLegs
           key={singleFlight.flightToken}
           departureTicket={singleFlight.flight.legs[0]}
           arrivalTicket={singleFlight.flight.legs[1]}
@@ -153,7 +122,7 @@ function App() {
           carrier={singleFlight.flight.carrier.caption}
           totalTravelTime={singleFlight.totalTravelTime}
           baggage={singleFlight.flight.servicesStatuses.baggage}
-          logo={findLogoByCaption(singleFlight.flight.carrier.caption)}
+          logo={findLogoByCaption(singleFlight.flight.carrier.caption, flightCarriersList)}
         />
       ))}
     </div>

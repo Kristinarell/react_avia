@@ -1,54 +1,12 @@
 import React from 'react';
+import { separateDateAndTime, convertToFlightTime } from '../utils/formattingUtils';
 
-function separateDateAndTime(dateTimeString) {
-  const dateTime = new Date(dateTimeString);
-
-  const daysOfWeekShort = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
-  const dayOfWeek = daysOfWeekShort[dateTime.getDay()];
-
-  const month = formatMonth(dateTime.getMonth());
-  const day = dateTime.getDate();
-  const time = dateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-  return { date: `${day} ${month}, ${dayOfWeek}`, time };
-}
-
-// Функция для форматирования месяцев
-function formatMonth(month) {
-  const monthNamesShort = [
-    'янв',
-    'фев',
-    'мар',
-    'апр',
-    'мая',
-    'июнь',
-    'июль',
-    'авг',
-    'сен',
-    'окт',
-    'ноя',
-    'дек',
-  ];
-  return monthNamesShort[month];
-}
-
-function convertToFlightTime(minutes) {
-  if (typeof minutes !== 'number' || minutes < 0) {
-    return 'Invalid input';
-  }
-  const hours = Math.floor(minutes / 60);
-  const remainingMinutes = minutes % 60;
-
-  return `${hours} ч ${remainingMinutes} мин`;
-}
-
+// Компонент для отображения подробной информации о перелете, включая вылет, прилет, длительность и другие детали.
 export const FlightInfo = ({ ticketInfo }) => {
-  //console.log(ticketInfo);
-
   const transfersQuantityText =
     ticketInfo.segments.length === 1 ? 'без пересадок' : `${ticketInfo.segments.length - 1} пересадка`;
 
-  const totalDuration = ticketInfo.duration; // общее время в пути
+  const totalDuration = ticketInfo.duration; // время в пути
   const initialSegment = ticketInfo.segments[0];
   const finalSegment = ticketInfo.segments[1] ?? ticketInfo.segments[0];
 
@@ -56,11 +14,11 @@ export const FlightInfo = ({ ticketInfo }) => {
   const { arrivalAirport, arrivalCity, arrivalDate } = finalSegment; // данные о конечной точке перелета
 
   const { date: departureTimestamp, time: departureTime } = separateDateAndTime(departureDate);
-  const { date: arrivalTimestamp, time: arrivalDateTime } = separateDateAndTime(arrivalDate);
+  const { date: arrivalTimestamp, time: arrivalTime } = separateDateAndTime(arrivalDate);
   return (
     <div className="flight_wrapper">
       <div className="departure-date">
-        <h5>{departureTimestamp}</h5>
+        <h3>{departureTimestamp}</h3>
         <svg width="2" height="70" viewBox="0 0 2 101" fill="none" xmlns="http://www.w3.org/2000/svg">
           <line x1="1.38589" y1="100.747" x2="1.38589" y2="0.74707" stroke="#8B8484" strokeWidth="1.22822" />
         </svg>
@@ -68,15 +26,15 @@ export const FlightInfo = ({ ticketInfo }) => {
 
       <div className="flight-info">
         <div className="departureSide">
-          <h5>
+          <h3>
             {departureCity?.caption} {departureAirport?.caption}
-          </h5>
+          </h3>
           <h2>{departureTime}</h2>
           <h2>{departureAirport.uid}</h2>
         </div>
 
         <div className="duration">
-          <h5 className="duration_time">{convertToFlightTime(totalDuration)}</h5>
+          <h3 className="duration_time">{convertToFlightTime(totalDuration)}</h3>
           <svg width="230" height="30" viewBox="0 0 381 30" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M0.666667 16.4067C0.666667 19.3523 3.05448 21.7401 6 21.7401C8.94552 21.7401 11.3333 19.3523 11.3333 16.4067C11.3333 13.4612 8.94552 11.0734 6 11.0734C3.05448 11.0734 0.666667 13.4612 0.666667 16.4067ZM6 17.4067H175.494V15.4067H6V17.4067ZM175.494 17.4067H344.988V15.4067H175.494V17.4067Z"
@@ -91,10 +49,12 @@ export const FlightInfo = ({ ticketInfo }) => {
         </div>
 
         <div className="arravalSide">
-          <h5>
+          <h3>
             {arrivalCity?.caption} {arrivalAirport?.caption}
-          </h5>
-          <h2>{arrivalDateTime}</h2>
+          </h3>
+          <h2>
+            {arrivalTime} <span>{arrivalTimestamp}</span>
+          </h2>
           <h2>{arrivalAirport.uid}</h2>
         </div>
       </div>
@@ -103,11 +63,3 @@ export const FlightInfo = ({ ticketInfo }) => {
 };
 
 export default FlightInfo;
-
-// информация о пересадке
-// travelDuration,
-// arrivalDate,
-// arrivalCity,
-// arrivalAirport,
-// aircraft,
-// airline,

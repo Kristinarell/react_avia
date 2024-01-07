@@ -1,6 +1,6 @@
 .flight {
   &_container {
-    background: #f1f1f1;
+    background: $ticketContainer;
     border-radius: 20px;
     width: 75%;
     margin: 2rem auto;
@@ -34,13 +34,33 @@
         align-items: baseline;
         gap: 5px;
         padding-left: 20px;
+        width: 75%;
 
-        .pair {
+        .info-row {
           display: flex;
           align-items: center;
           justify-content: center;
           gap: 15px;
+          max-height: 25px;
+          img {
+            width: 20px;
+          }
         }
+      }
+      .priceBtn {
+        display: inline-block;
+        border-radius: 3px;
+        margin-top: 1.6rem;
+        padding: 0.5rem 0;
+        text-align: center;
+        cursor: pointer;
+        border: 1px solid transparent;
+        background: $black;
+        color: #f1f1f1;
+        font-family: Roboto;
+        font-size: 18px;
+        width: 100%;
+        justify-self: center;
       }
     }
 
@@ -105,14 +125,6 @@
       width: 35%;
     }
 
-    h5 {
-      color: $gray;
-      font-family: Roboto;
-      font-size: 15px;
-      font-style: normal;
-      font-weight: 400;
-    }
-
     p {
       color: $gray;
       font-family: Roboto;
@@ -122,7 +134,7 @@
     }
   }
 }
-.flightsLength {
+.flightsNumber {
   position: absolute;
   left: 198px;
   top: 155px;

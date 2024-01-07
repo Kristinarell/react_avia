@@ -11,34 +11,29 @@ export const filterSlice = createSlice({
   initialState,
   reducers: {
     setActiveSort: (state, action) => {
-      state.sort = {};
-      state.sort = action.payload;
+      if (state.sort.id === action.payload.id) {
+        state.sort = {}; // Если пользователь повторно нажал на ту же сортировку, сбросить состояние
+      } else {
+        state.sort = action.payload;
+      }
     },
-
     setSelectedAirline: (state, action) => {
       const existingAirline = state.selectedAirlines.find(
         (selectedAirline) => selectedAirline.id === action.payload.id,
       );
-
       if (!existingAirline) {
-        // Если авиакомпания не выбрана, добавляем в массив
-        state.selectedAirlines.push(action.payload);
+        state.selectedAirlines.push(action.payload); // Если авиакомпания не выбрана, добавляем в массив
       } else {
-        // Если авиакомпания уже выбрана, удаляем из массива
         state.selectedAirlines = state.selectedAirlines.filter(
-          (selectedAirline) => selectedAirline.id !== action.payload.id,
+          (selectedAirline) => selectedAirline.id !== action.payload.id, // Если авиакомпания уже выбрана, удаляем
         );
       }
     },
-
     setTransfersQuantity: (state, action) => {
       const existingQuantity = state.transfersQuantity.find((quantity) => quantity.id === action.payload.id);
-
       if (!existingQuantity) {
-        // Если количество пересадок не выбрано, добавляем в массив
         state.transfersQuantity.push(action.payload);
       } else {
-        // Если количество пересадок уже выбрано, удаляем из массива
         state.transfersQuantity = state.transfersQuantity.filter(
           (quantity) => quantity.id !== action.payload.id,
         );

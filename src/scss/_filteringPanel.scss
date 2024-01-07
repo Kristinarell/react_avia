@@ -18,7 +18,7 @@
       text-align: center;
       cursor: pointer;
       border: 1px solid transparent;
-      background: #ffffff;
+      background: $ticketContainer;
       color: $black;
       font-family: Roboto;
       font-size: 16px;
@@ -47,12 +47,12 @@
 
           &.active,
           &:hover {
-            background: rgba(254, 95, 30, 0.05);
+            background: rgba(108, 30, 254, 0.08);
           }
 
           &.active {
             font-weight: bold;
-            color: green;
+            color: rgb(30, 0, 104);
           }
 
           label {
@@ -76,11 +76,10 @@
             input[type='radio']:checked:after {
               width: 15px;
               height: 15px;
-
               top: -2px;
               left: -1px;
               position: relative;
-              background-color: #ffa500;
+              background-color: $purple;
               content: '';
               display: inline-block;
               visibility: visible;
@@ -105,6 +104,7 @@
   position: relative;
   width: 22%;
   padding: 8px 12px;
+
   .minPrice {
     position: absolute;
     left: 30px;

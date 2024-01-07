@@ -1,19 +1,10 @@
 @import 'variables';
 @import 'normalize';
-
 @import 'flight';
 @import 'filteringPanel';
 
 body {
-  // background: -webkit-linear-gradient(to top, #91eae4, #86a8e7, #7f7fd5); /* Chrome 10-25, Safari 5.1-6 */
-  // background: linear-gradient(to top, #91eae4, #86a8e7, #7f7fd5);
-
-  // background: -webkit-linear-gradient(to bottom, #6e48aa, #9d50bb);
-  // background: linear-gradient(to bottom, #6e48aa, #9d50bb);
-
-  background: -webkit-linear-gradient(to top, #fdb99b, #cf8bf3, #a770ef); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to top, #fdb99b, #cf8bf3, #a770ef);
-
+  background: $backgroundColor;
   background-size: cover;
   background-blend-mode: multiply;
   background-attachment: fixed;
@@ -21,9 +12,16 @@ body {
 }
 h2 {
   font-size: 18px;
+  span {
+    color: $gray;
+    font-family: Roboto;
+    font-size: 12px;
+    font-style: normal;
+    margin-left: 2px;
+  }
 }
-h5 {
-  color: #676767;
+h3 {
+  color: $gray;
   font-family: Roboto;
   font-size: 15px;
   font-style: normal;

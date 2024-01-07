@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+// Компонент, который на основании массива опций отрисовывает выпадающий список.
 const OptionsSelector = ({ optionsArray, dispatchFunction, filterProperty, radio, placeholder }) => {
   const dispatch = useDispatch();
   const selectedOptions = useSelector((state) => state.filter[filterProperty]);
@@ -45,7 +46,7 @@ const OptionsSelector = ({ optionsArray, dispatchFunction, filterProperty, radio
                 <label>
                   <input
                     type={radio ? 'radio' : 'checkbox'}
-                    onChange={() => {
+                    onClick={() => {
                       dispatch(dispatchFunction(option));
                     }}
                     value={option.id}
